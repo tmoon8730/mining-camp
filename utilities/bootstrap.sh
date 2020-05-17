@@ -18,5 +18,11 @@ tmux new-session -s ${session_name} -d
 pane=${session_name}:0.0
 tmux send-keys -t "$pane" 'java -Xms2G -Xmx12G -jar /minecraft/nerdhouse/fabric-server-launch.jar nogui' C-m
 
+# Create a detached tmux session named "crafty" and launch the admin panel in it
+session_name=crafty
+tmux new-session -s ${session_name} -d
+pane=${session_name}:0.0
+tmux send-keys -t "$pane" '/minecraft/nerdhouse/crafty/run_crafty.sh' C-m
+
 echo "Minecraft server launched, attach to it by running:"
 echo "tmux attach-session -t ${session_name}"

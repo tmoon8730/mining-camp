@@ -58,6 +58,14 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Crafty
+  ingress {
+      from_port = 8000
+      to_port = 8000
+      protocol = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Minecraft
   ingress {
     from_port   = var.minecraft["port"]

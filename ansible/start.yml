@@ -41,7 +41,7 @@
   - name: "Install prerequisites"
     become: true
     apt:
-      name: ["awscli", "openjdk-8-jre-headless", "python-pip", "jq"]
+      name: ["awscli", "openjdk-8-jre-headless", "python-pip", "jq", "python3-pip"]
       update_cache: yes
 
   - name: "Create minecraft root directory"
@@ -75,11 +75,16 @@
       repo: https://github.com/tmoon8730/mining-camp.git
       dest: "{{minecraft_dir}}/mining-camp"
 
-  - name: "Install Python requirements"
+  - name: "Install mining-camp Python2 requirements"
     become: true
     shell: |
       pip install -r '{{minecraft_dir}}/mining-camp/requirements.txt'
 
+  - name: "Install crafty Python3 requirements"
+    become: true
+    shell: |
+      pip install -r '{{minecraft_dir}}/nerdhouse/crafty/crafty-web/requirements.txt'
+  
   - name: "Ensure server tarball doesn't exist"
     file:
       path: "{{minecraft_dir}}/{{server_file}}"
