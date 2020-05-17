@@ -116,8 +116,9 @@
   - name: "Add restart script to crontab"
     cron: 
       name: "minecraft restart"
-      minute: "0 2 * * *"
-      job: "{{minecraft_dir}}/mining-camp/utilities/minecraft-restart.sh"
+      minute: "0"
+      hour: "2"
+      job: "sh {{minecraft_dir}}/mining-camp/utilities/minecraft-restart.sh"
 
   - name: "Start emergency shutdown monitoring script in the background"
     # In order to run a background process, we detach inputs and outputs and
