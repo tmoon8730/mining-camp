@@ -7,6 +7,10 @@ variable "minecraft" {
   }
 }
 
+variable "remote_backend" {
+    default = "nmc-terraform-state"
+}
+
 variable "max_spot_price" {
   description = "Maximum amount to pay for per spot instance per hour."
   default     = "0.7"

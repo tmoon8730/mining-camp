@@ -46,4 +46,25 @@ EOF
 }
 
 
-
+# Assigns policies so that Terraform can save state to the remote backend S3 bucket
+resource "aws_iam_role_policy" "terraform-backend" {
+    name = "terraform-backend"
+    role = aws_iam_role.minecraft.id
+    policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::nmc-terraform-state"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Resource": "arn:aws:s3:::nmc-terraform-state/nerdhouse"
+    }
+  ]
+}
+EOF
+}
