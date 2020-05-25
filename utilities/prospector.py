@@ -31,10 +31,8 @@ logger.addHandler(handler)
 # a list of regexes matching file names, and the date format string that can
 # be matched against the first regex group.
 BACKUP_FORMATS = [
-    # Aroma backup format
-    (re.compile('\w+-\w+-(\d{4}-\d{2}-\d{2}--\d{2}-\d{2}).zip'), '%Y-%m-%d--%H-%M'),
-    # FTB Utilities backup format
-    (re.compile('(\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-\d{2}).zip'), '%Y-%m-%d-%H-%M-%S')
+    # Crafty backup format
+    (re.compile('(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}).zip'), '%Y-%m-%d_%H-%M-%S')
 ]
 
 S3_BACKUP_RE = re.compile('\w+-(\d{8}T\d{6}).zip')
@@ -226,7 +224,7 @@ class Prospector(object):
     def local_backup_path(self):
         return os.path.join(self.server_root_dir,
                             self.server_name,
-                            'backups')
+                            'crafty/crafty-web/backups')
 
 
 def main():

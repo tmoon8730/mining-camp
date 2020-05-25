@@ -79,11 +79,6 @@
     become: true
     shell: |
       pip install -r '{{minecraft_dir}}/mining-camp/requirements.txt'
-
-  - name: "Install crafty Python3 requirements"
-    become: true
-    shell: |
-      pip install -r '{{minecraft_dir}}/nerdhouse/crafty/crafty-web/requirements.txt'
   
   - name: "Ensure server tarball doesn't exist"
     file:
@@ -101,6 +96,11 @@
     shell: |
       cd {{minecraft_dir}}
       tar -xzvf {{server_file}}
+
+  - name: "Install crafty Python3 requirements"
+    become: true
+    shell: |
+      pip3 install -r '{{minecraft_dir}}/nerdhouse/crafty/crafty-web/requirements.txt'
 
   - name: "Render and install prospector config"
     template:
