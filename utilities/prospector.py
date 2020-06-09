@@ -154,6 +154,9 @@ class Prospector(object):
                 # If we found an older backup, retag it since it's no longer
                 # current
                 self.tag_s3_object(latest_s3_key, backup='old')
+            
+            # Remove the backup on disk to save space since the instance has limited disk storage
+            self.remove_backup_on_disk(latest_path)
 
 
     def push_current_backup(self):
@@ -225,7 +228,13 @@ class Prospector(object):
         return os.path.join(self.server_root_dir,
                             self.server_name,
                             'crafty/crafty-web/backups')
-
+    
+    def remove_backup_on_disk(self, latest_path):
+        """
+        Remove backup on disk
+        """
+        logger.info("Removing backup on disk at {}".format(latest_path))
+        shutil.rmtree(latest_path)
 
 def main():
     FETCH, BACKUP, BACKUP_CURRENT = 'fetch', 'backup', 'backup_current'
